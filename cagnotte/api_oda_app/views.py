@@ -80,3 +80,25 @@ def api_academicain_update(request, register_number:str):
             return Response({"message": "Académicien bien modifié", "success": True}, status=200)
             # return JsonResponse(serializer.items,)
         return Response(serializer.errors, status=400)
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def api_reason(request):
+    message = ""
+    success = False
+
+    # definir notre requête de listing
+    if request.method == 'GET':
+        # recuperer tt les academician
+        items = Reason.objects.all()
+        # defini la variable qui appelle le serializer et lui affecte la variable de recuperation des data
+        serializer = ReasonSerializer(items, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # verifions si l'academicien existe
+        serializer = ReasonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Académicien bien enregistré", "success": True}, status=201)
+        
+        return JsonResponse(serializer.errors, status=400)
