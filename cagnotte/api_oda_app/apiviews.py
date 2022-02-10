@@ -1,16 +1,6 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-<<<<<<< HEAD
-from .import models
-from django.http import HttpResponse
-
-
-
-
-
-    
-=======
 from . import models
 from datetime import date
 
@@ -29,7 +19,6 @@ def api_payment(request):
     
     if request.method == 'GET':
         return Response({"message":"Bienvenue à orange digital center"})
-    else:
         # if not request.data.get('register_number') or not request.data.get('reason') or request.data.get('montant'):
         #     message = "Veuillez saisir les champs vides !"
             
@@ -41,4 +30,3 @@ def api_payment(request):
         #         return Response({'message': message, 'success': success}, status=status.HTTP_4O0_BAD_REQUEST)
             
 
->>>>>>> 19f6b4ad9b9a172e4e5af944fd63879cd119696a
