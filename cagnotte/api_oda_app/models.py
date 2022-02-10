@@ -20,6 +20,7 @@ class Academician(Base):
     first_name = models.CharField(max_length=40, verbose_name="prenom")
     register_number = models.CharField(max_length=30,verbose_name="matricule")
     picture = models.FileField(upload_to="pictures" , verbose_name="photos")
+    reasons = models.ManyToManyField("api_oda_app.Reason", verbose_name="motif", through='Payment')
 
     class Meta:
         verbose_name = "Academicien"
@@ -28,20 +29,27 @@ class Academician(Base):
     def __str__(self):
         return self.last_name
 
-class Motif(Base):
-    nom_motif = models.ForeignKey(Academician, related_name="motif_academician",verbose_name=("Academicien"), on_delete=models.CASCADE)
+class Reason(Base):
+    name = models.CharField(max_length=200, verbose_name='nom', unique=True)
 
     class Meta:
         verbose_name = "Motif"
         verbose_name_plural = "Motifs"
 
     def __str__(self):
-        return self.nom_motif
+        return self.name
 
 
-class payment(Base):
-    register_number = models.CharField(max_length=50)
-    motif = models.CharField(max_length=255)
-    montant = models.CharField(max_length=255)
+class Payment(Base):
+    academician = models.ForeignKey(Academician, on_delete=models.CASCADE, verbose_name='académicien')
+    reason = models.ForeignKey(Reason, on_delete=models.CASCADE, verbose_name='motif')
+    montant = models.DecimalField( max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'paiement'
+    
+    def __str__(self):
+        return f"{self.academician}, {self.reason}, {self.montant}"
 
 
