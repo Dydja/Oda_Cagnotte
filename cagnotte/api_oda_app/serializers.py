@@ -1,8 +1,6 @@
 from pyexpat import model
 from cagnotte.api_oda_app.models import Academician, Reason, Payment
-from snippets.serializers import SnippetSerializer
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+ 
 
 # serializer from Academicien
 
