@@ -16,10 +16,10 @@ class Base(models.Model):
 
 
 class Academician(Base):
-    last_name = models.CharField(max_length=30 , verbose_name="nom")
-    first_name = models.CharField(max_length=40, verbose_name="prenom")
-    register_number = models.CharField(max_length=30,verbose_name="matricule")
-    picture = models.FileField(upload_to="pictures" , verbose_name="photos")
+    last_name = models.CharField(max_length=30 , verbose_name="nom", blank=True)
+    first_name = models.CharField(max_length=40, verbose_name="prenom", blank=True)
+    register_number = models.CharField(max_length=30,verbose_name="matricule", blank=True)
+    picture = models.FileField(upload_to="pictures" , verbose_name="photos", blank=True)
     reasons = models.ManyToManyField("api_oda_app.Reason", verbose_name="motif", through='Payment')
 
     class Meta:
@@ -41,8 +41,13 @@ class Reason(Base):
 
 
 class Payment(Base):
+<<<<<<< HEAD
     academician = models.ForeignKey(Academician, on_delete=models.CASCADE, related_name='academician_payment',verbose_name='académicien')
     reason = models.ForeignKey(Reason, on_delete=models.CASCADE, verbose_name='motif')
+=======
+    academician = models.ForeignKey(Academician, on_delete=models.CASCADE, verbose_name='académicien', related_name='academician_payment')
+    reason = models.ForeignKey(Reason, on_delete=models.CASCADE, verbose_name='motif', related_name='academician_reason')
+>>>>>>> 19f6b4ad9b9a172e4e5af944fd63879cd119696a
     montant = models.DecimalField( max_digits=10, decimal_places=2)
     payment_date = models.DateField(auto_now=True) 
     payment_hour = models.TimeField(auto_now=True)
