@@ -16,10 +16,10 @@ class Base(models.Model):
 
 
 class Academician(Base):
-    last_name = models.CharField(max_length=30 , verbose_name="nom")
-    first_name = models.CharField(max_length=40, verbose_name="prenom")
-    register_number = models.CharField(max_length=30,verbose_name="matricule")
-    picture = models.FileField(upload_to="pictures" , verbose_name="photos")
+    last_name = models.CharField(max_length=30 , verbose_name="nom", blank=True)
+    first_name = models.CharField(max_length=40, verbose_name="prenom", blank=True)
+    register_number = models.CharField(max_length=30,verbose_name="matricule", blank=True)
+    picture = models.FileField(upload_to="pictures" , verbose_name="photos", blank=True)
     reasons = models.ManyToManyField("api_oda_app.Reason", verbose_name="motif", through='Payment')
 
     class Meta:
