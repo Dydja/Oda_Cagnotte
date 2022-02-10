@@ -6,3 +6,4 @@ from rest_framework.response import Response
 def api_payment(request):
     
     return Response({"message":"Bienvenue à orange digital center"})
+
