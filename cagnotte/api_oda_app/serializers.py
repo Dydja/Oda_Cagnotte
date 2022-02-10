@@ -1,29 +1,31 @@
+from dataclasses import field
 from pyexpat import model
-from cagnotte.api_oda_app.models import Academician, Reason, Payment
-from snippets.serializers import SnippetSerializer
+from api_oda_app.models import Academician, Reason, Payment
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework import serializers
 
 # serializer from Academicien
 
 
 class AcademicianSerializer(serializers.ModelSerializer):
     class Meta:
-        model: Academician
-        exlude = ['date_add ', 'date_update', 'status']
+        model = Academician
+        fields = '__all__'
 
 
 # serializer from Reasons
 
 class ReasonSerializer(serializers.ModelSerializer):
     class Meta:
-        model: Reason
-        exlude = ['date_add ', 'date_update', 'status']
+        model = Reason
+        fields = '__all__'
+
 
 # serializer from Payment
 
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model: Payment
-        exlude = ['payment_date ', 'payment_hour', 'status']
+        model = Payment
+        fields = '__all__'
