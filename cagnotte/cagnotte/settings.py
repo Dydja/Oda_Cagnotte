@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api_oda_app.apps.ApiOdaAppConfig',
+    'api_oda_app.apps.ApiOdaAppConfig'
 ]
 
 MIDDLEWARE = [
