@@ -41,10 +41,10 @@ class Reason(Base):
 
 
 class Payment(Base):
-    academician = models.ForeignKey(Academician, on_delete=models.CASCADE, verbose_name='académicien')
-    reason = models.ForeignKey(Reason, on_delete=models.CASCADE, verbose_name='motif')
+    academician = models.ForeignKey(Academician, on_delete=models.CASCADE, verbose_name='académicien', related_name='academician_payment')
+    reason = models.ForeignKey(Reason, on_delete=models.CASCADE, verbose_name='motif', related_name='academician_reason')
     montant = models.DecimalField( max_digits=10, decimal_places=2)
-    payment_date = models.DateField(auto_now=True)
+    payment_date = models.DateField(auto_now=True) 
     payment_hour = models.TimeField(auto_now=True)
     
     class Meta:

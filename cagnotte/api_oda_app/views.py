@@ -30,7 +30,7 @@ def academician_exist(register_number):
         return false
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT'])
 def api_academicain(request):
     message = ""
     success = False
@@ -55,20 +55,29 @@ def api_academicain(request):
            return Response({'message': message, 'success': success})
         return JsonResponse(serializer.errors, status=400)
 
+    elif request.method == 'DELETE':
+        
+        return Response({"message": "Académicien bien supprimé", "success": True}, status=200)
+
+
 
 
 
 # second method of academican post
-@api_view(['PUT', 'GET'])
+@api_view(['PUT', 'GET', 'DELETE'])
 def api_academicain_update(request, register_number:str):
+    try:
+        items = Academician.objects.filter(register_number=register_number)
+    except items.DoesNotExist:
+        return Response ({"message": "Aucun academicien retrouvé ", "success": True}, status=404)
     if request.method == 'GET':
         # recuperer tt les academician
-        items = Academician.objects.filter(register_number=register_number)
+        
         # defini la variable qui appelle le serializer et lui affecte la variable de recuperation des data
         serializer = AcademicianSerializer(items, many=True)
         return Response(serializer.data)
     # definir notre requête
-    items = Academician.objects.get(register_number=register_number)
+    #items = Academician.objects.get(register_number=register_number)
     if request.method == 'PUT':
         # recuperer tt les academician
         
@@ -80,6 +89,11 @@ def api_academicain_update(request, register_number:str):
             return Response({"message": "Académicien bien modifié", "success": True}, status=200)
             # return JsonResponse(serializer.items,)
         return Response(serializer.errors, status=400)
+    elif request.method == 'DELETE':
+        items.delete()
+        return Response({"message": "Académicien bien supprimé", "success": True}, status=200)
+    items
+    
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def api_reason(request):
@@ -99,6 +113,6 @@ def api_reason(request):
         serializer = ReasonSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Académicien bien enregistré", "success": True}, status=201)
+            return Response({"message": "Motif bien enregistré", "success": True}, status=201)
         
         return JsonResponse(serializer.errors, status=400)
